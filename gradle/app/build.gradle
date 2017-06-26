@@ -1,0 +1,91 @@
+/**
+ * В первой строке в применяется плагин Android для Gradle для этой сборки,
+ * а блок android доступен для определения параметров сборки для Android.
+ */
+
+apply plugin: 'com.android.application'
+
+/**
+ * В блоке Android вы можете сконфигурировать все ваши настройки модуля для Android.
+ */
+android {
+    /**
+     * CompileSdkVersion указывает уровень Android API который
+     * Gradle должен использовать для компиляции вашего приложения.
+     * Это означает, что ваше приложение может использовать API-функции,
+     * включенные в этот уровень API и ниже.
+     */
+    compileSdkVersion 25
+    /**
+     * BuildToolsVersion указывает версию инструментов сборки SDK,
+     * утилит командной строки и компилятора, которые Gradle должен использовать
+     * для создания вашего приложения. Вам нужно загрузить инструменты сборки с помощью SDK Manager.
+     */
+    buildToolsVersion "25.0.2"
+
+    /**
+     * Блок defaultConfig инкапсулирует настройки и записи по умолчанию для всех вариантов сборки
+     * и может динамически переопределять некоторые атрибуты в файле AndroidManifest.xml этого модуля.
+     * Вы можете настроить product flavor, чтобы переопределить эти значения для разных версий вашего приложения.
+     */
+    defaultConfig {
+
+        // ApplicationId уникально идентифицирует пакет для публикации.
+        applicationId "csu.lesson1"
+        // Определяет минимальный уровень Android API, необходимый для запуска приложения.
+        minSdkVersion 16
+        // Указывает уровень API, используемый для тестирования приложения.
+        targetSdkVersion 25
+        // Определяет номер версии вашего приложения.
+        versionCode 1
+        // Определяет удобное для пользователя имя версии для вашего приложения.
+        versionName "1.0"
+
+    }
+
+    /**
+     * Блок buildTypes позволяет вам сконфигурировать несколько типов сборки.
+     * По умолчанию система сборки определяет два типа сборки: debug и release.
+     * Тип сборки debug явно не показан в конфигурации сборки по умолчанию,
+     * но включает инструменты отладки и подписан с ключом отладки.
+     * Тип сборки release применяет настройки Proguard и по умолчанию не подписан.
+     */
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    /**
+     * Блок productFlavors позволяет настроить несколько видов продуктов.
+     * Это позволяет создавать различные версии вашего приложения,
+     * которые могут переопределять блок defaultConfig с их собственными настройками.
+     * Ароматизаторы продуктов не являются обязательными, и система сборки не создает
+     * их по умолчанию. В этом примере создается бесплатный и платный продукт.
+     * В каждом flavor продукта указывается его собственный идентификатор приложения.
+     */
+
+    productFlavors {
+        free {
+            applicationId 'com.example.myapp.free'
+        }
+
+        paid {
+            applicationId 'com.example.myapp.paid'
+        }
+    }
+}
+
+/**
+ * Блок зависимостей уровня модуля определяет только зависимости, необходимые для сборки самого модуля.
+ */
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+}

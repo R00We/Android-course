@@ -1,0 +1,58 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+/*
+ Блок buildscript - тут вы настраиваете репозитории и зависимости для самого
+ Gradle - это означает, что здесь вы не должны включать зависимости для ваших модулей.
+ Например, этот блок включает в себя плагин Android для Gradle в качестве зависимости,
+ так как он предоставляет дополнительные инструкции.
+ Gradle необходимо создать модули приложений Android.
+ */
+
+
+
+buildscript {
+    /**
+     * Блок репозиториев настраивает репозитории.
+     * Gradle использует поиск или загрузку зависимостей.
+     * Gradle предварительно настраивает поддержку репозиториев, таких как JCenter,
+     * Maven Central и Ivy.
+     *
+     * Вы также можете использовать локальные репозитории или определить свои собственные
+     * удаленные репозитории.
+     * Код ниже JCenter в качестве репозитория Gradle должен использовать его зависимости.
+     */
+    repositories {
+        jcenter()
+    }
+
+    /**
+     * Блок зависимостей настраивает зависимости, которые должен использовать Gradle
+     * для создания проекта.
+     *
+     * Следующая строка добавляет плагин Android для версии Gradle 2.3.1
+     * в качестве зависимости .
+     */
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+/**
+ * Блок allprojects - тут вы настраиваете репозитории и зависимости,
+ * используемые всеми модулями вашего проекта. Зависимости, которые не требуются
+ * для всех модулей должены быть настроены в файлах build.gradle уровня модуля. Для новых
+ * проектов, Android Studio настраивает JCenter как репозиторий по умолчанию.
+ */
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
